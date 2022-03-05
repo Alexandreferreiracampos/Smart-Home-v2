@@ -3,18 +3,16 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import {SvgFromUri} from 'react-native-svg';
 
 
+
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
     ico:string;
-    active:boolean
-   
 }
 
-export default function Button( {title, ico, active, ...rest}: ButtonProps){
+export default function Button( {title, ico, ...rest}: ButtonProps){
     return(
         <TouchableOpacity {...rest} style={styles.container} activeOpacity={0.7} >
-
-            {<Image source={require('../../assets/fan.png')} style={{width:55, height:55}}></Image>, active && <Image source={require('../../assets/fan.png')} style={{width:55, height:55}}></Image>}
+            <Image source={ico} style={{width:85, height:85}}/>
             <Text style={styles.text}>
            
                 {title}

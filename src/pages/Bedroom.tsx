@@ -2,6 +2,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Button from '../components/Button';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import fan  from '../../assets/fan.png';
+import lamp  from '../../assets/lamp.png';
 
 export default function Bedroom() {
     return (
@@ -25,8 +27,8 @@ export default function Bedroom() {
                 <Text style={{fontSize:20, fontWeight:'bold', color: '#868686'}}>Devices</Text>
                 </View>
             <View style={{flexDirection:'row'}}>
-            <Button title='Lampada' ico='fan'/>
-            <Button title='Ventilador' ico="fan"/>
+            <Button title='Lampada' ico={lamp}/>
+            <Button title='Ventilador' ico={fan}/>
             </View>    
             
             </View>
