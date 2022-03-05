@@ -4,7 +4,7 @@ import Bedroom from './src/pages/Bedroom';
 export default function App() {
   return (
     <View style={styles.container}>
-      <Bedroom/>
+      <Bedroom />
     </View>
   );
 }
@@ -12,7 +12,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FDFDFD",
+    backgroundColor: 'rgb(243,243,243)',
     alignItems: 'center',
     justifyContent: 'center',
   },
