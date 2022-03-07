@@ -5,9 +5,11 @@ import { Ionicons } from '@expo/vector-icons';
 
 interface ButtonProps extends TouchableOpacityProps{
   statusModal:boolean;
-  teste:()=>void
+  changeStatusModal:()=>void
+    
+
 }
-export default function ScreenModal({ statusModal, teste, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, changeStatusModal, ...rest }: ButtonProps){
   
    
     return(
@@ -25,7 +27,7 @@ export default function ScreenModal({ statusModal, teste, ...rest }: ButtonProps
             <View style={styles.headerModal}>
 
 
-              <Ionicons onPress={()=>teste()} name="close-sharp" size={24} color="black" style={{ left: "90%" }} />
+              <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="black" style={{ left: "90%" }} />
               <View><Text>ola</Text></View>
               
             </View>

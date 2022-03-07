@@ -14,7 +14,7 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
 
   const [modalActive, setModalAtive] = useState(false);
 
-    const teste = ()=>{
+    const changeStatusModal = ()=>{
       
       setModalAtive(false)
      
@@ -37,7 +37,7 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
             <TouchableOpacity style={{ width: 30, height: 25 }}>
                 <FontAwesome5 name="wifi" size={24} color={status} onPress={()=>setModalAtive(true)} />
             </TouchableOpacity>
-            <ScreenModal statusModal={modalActive} teste={()=>teste()}/>
+            <ScreenModal statusModal={modalActive} changeStatusModal={()=>changeStatusModal()}/>
 
         </View>
     )
