@@ -1,9 +1,9 @@
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TouchableOpacityProps } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { Ionicons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core';
 import { useState } from 'react';
+import ScreenModal from '../components/Screen-Modal';
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -12,7 +12,13 @@ interface ButtonProps extends TouchableOpacityProps {
 
 export default function Header({ title, status, ...rest }: ButtonProps) {
 
-    const [modalActive, setModalActive] = useState(false)
+  const [modalActive, setModalAtive] = useState(false);
+
+    const teste = ()=>{
+      
+      setModalAtive(false)
+     
+    }
 
     const navigation = useNavigation();
 
@@ -29,29 +35,9 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
 
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity style={{ width: 30, height: 25 }}>
-                <FontAwesome5 name="wifi" size={24} color={status} onPress={() =>setModalActive(true)}/>
+                <FontAwesome5 name="wifi" size={24} color={status} onPress={()=>setModalAtive(true)} />
             </TouchableOpacity>
-            <Modal
-        animationType='fade'
-        transparent={true}
-        statusBarTranslucent={true}
-        visible={modalActive}
-        onRequestClose={() => { setModalActive(false) }}
-
-      >
-
-        <View style={styles.outerView}>
-          <View style={styles.modalView}>
-            <View style={styles.headerModal}>
-
-
-              <Ionicons onPress={() => setModalActive(false)} name="close-sharp" size={24} color="black" style={{ left: "90%" }} />
-
-            </View>
-
-          </View>
-        </View>
-      </Modal>
+            <ScreenModal statusModal={modalActive} teste={()=>teste()}/>
 
         </View>
     )
@@ -75,28 +61,5 @@ const styles = StyleSheet.create({
         color: '#868686'
 
     },
-    outerView: {
-        flex: 1,
-        justifyContent: "center",
-        backgroundColor: 'rgba(0,0,0,0.3)',
-        alignItems: 'center'
-      },
-      modalView: {
-    
-        backgroundColor: 'white',
-        borderRadius: 20,
-        padding: 15,
-        width: "80%",
-        height: '40%',
-        alignItems: 'center'
-    
-      },
-      headerModal: {
-    
-        width: "100%",
-        height: "10%",
-    
-    
-      }
-
+   
 })
