@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -5,7 +6,6 @@ import { Entypo } from '@expo/vector-icons';
 import fan from '../../assets/fan.png';
 import lamp from '../../assets/lamp.png';
 import Slider from '@react-native-community/slider';
-import { useState } from 'react';
 
 var dimer0 = false
 var dimer10 = false
@@ -21,135 +21,109 @@ var dimer100 = false
 
 export default function Bedroom() {
 
-  const [size, setSize] = useState(0);
-  const [statusReguest, setReguest] = useState('#F2F4F5');
+    const [size, setSize] = useState(0);
+    const [statusSize, setStatusSize] = useState(0);
+    const [statusReguest, setReguest] = useState('#39d76c');
 
-
-   const command=(valor)=>{
-
-    let url = "http://192.168.0."
-    let req = new XMLHttpRequest();
-
-    req.onreadystatechange=()=>{
-      if(req.status==200 && req.readyState==4){
-        setReguest('#F2F4F5')
-      }else{
-        setReguest('red')
-      }
-    }
-
-    req.open('GET', url + valor )
-    req.send()
-
-    switch (valor){
-      case '100/fade':
-        setSize(0)
-        break;
-        
-    }
-  }
-    const dimerValor=()=>{
-
-        /* const dimerValor=()=>{
-    
-          let ip = size +"&"
-          let req = new XMLHttpRequest();
-          req.open('GET', 'http://192.168.0.228/' + ip);
-          req.send();
-        
-      }*/
-    
-      if(size == 0 && dimer0 == true ){
-        dimer0 = false
-        dimer10 = false
-        dimer0 = false
-        dimer('100/0')
-      }
-      if(size == 1 && dimer10 == false ){
-        dimer0 = true
-        dimer10 = true
-        dimer20 = false 
-        dimer('100/1')
-      }
-      if(size == 2 && dimer20 == false ){
-        dimer10 = false
-        dimer20 = true
-        dimer30 = false
-        dimer('100/2')
-      }
-      if(size == 3 && dimer30 == false ){
-        dimer20 = false
-        dimer30 = true
-        dimer40 = false
-        dimer('100/3')
-      }
-      if(size == 4 && dimer40 == false ){
-        dimer30 = false
-        dimer40 = true
-        dimer50 = false
-        dimer('100/4')
-      }
-      if(size == 5 && dimer50 == false ){
-        dimer40 = false
-        dimer50 = true
-        dimer60 = false
-        dimer('100/5')
-      }
-      if(size == 6 && dimer60 == false ){
-        dimer50 = false
-        dimer60 = true
-        dimer70 = false
-        dimer('100/6')
-      }
-      if(size == 7 && dimer70 == false ){
-        dimer60 = false
-        dimer70 = true
-        dimer80 = false
-        dimer('100/7')
-      }
-      if(size == 8 && dimer80 == false ){
-        dimer70 = false
-        dimer80 = true
-        dimer90 = false
-        dimer('100/8')
-      }
-      if(size == 9 && dimer90 == false ){
-        dimer80 = false
-        dimer90 = true
-        dimer100 = false
-        dimer('100/9')
-      }
-      if(size == 10 && dimer100 == false ){
-        dimer90 = false
-        dimer100 = true
-        dimer0 = true
-        dimer('100/10')
-      }
-    
-    }
-
-    const dimer=(valor)=>{
+    const command = (valor: any) => {
 
         let url = "http://192.168.0."
         let req = new XMLHttpRequest();
-      
-        req.onreadystatechange=()=>{
-          if(req.status==200 && req.readyState==4){
-            setReguest('#F2F4F5')
-          }else{
-            setReguest('red')
-          }
+
+        req.onreadystatechange = () => {
+            if (req.status == 200 && req.readyState == 4) {
+                setReguest('#39d76c')
+            } else {
+                setReguest('red')
+            }
         }
-      
-        req.open('GET', url + valor )
+
+        req.open('GET', url + valor)
         req.send()
-      
-      }
-    
+
+        switch (valor) {
+            case '100/fade':
+                setSize(0)
+                break;
+
+        }
+    }
+    const dimerValor = () => {
+        
+        if(size == 0 && dimer0 == true ){
+            dimer0 = false
+            dimer10 = false
+            dimer0 = false
+            command('100/0')
+          }
+          if(size == 1 && dimer10 == false ){
+            dimer0 = true
+            dimer10 = true
+            dimer20 = false 
+            command('100/1')
+          }
+          if(size == 2 && dimer20 == false ){
+            dimer10 = false
+            dimer20 = true
+            dimer30 = false
+            command('100/2')
+          }
+          if(size == 3 && dimer30 == false ){
+            dimer20 = false
+            dimer30 = true
+            dimer40 = false
+            command('100/3')
+          }
+          if(size == 4 && dimer40 == false ){
+            dimer30 = false
+            dimer40 = true
+            dimer50 = false
+            command('100/4')
+          }
+          if(size == 5 && dimer50 == false ){
+            dimer40 = false
+            dimer50 = true
+            dimer60 = false
+            command('100/5')
+          }
+          if(size == 6 && dimer60 == false ){
+            dimer50 = false
+            dimer60 = true
+            dimer70 = false
+            command('100/6')
+          }
+          if(size == 7 && dimer70 == false ){
+            dimer60 = false
+            dimer70 = true
+            dimer80 = false
+            command('100/7')
+          }
+          if(size == 8 && dimer80 == false ){
+            dimer70 = false
+            dimer80 = true
+            dimer90 = false
+            command('100/8')
+          }
+          if(size == 9 && dimer90 == false ){
+            dimer80 = false
+            dimer90 = true
+            dimer100 = false
+            command('100/9')
+          }
+          if(size == 10 && dimer100 == false ){
+            dimer90 = false
+            dimer100 = true
+            dimer0 = true
+            command('100/10')
+          }
+        
+
+    }
+
 
     return (
         <View style={styles.container}>
-            <Header title='Quarto' />
+            <Header title='Quarto' status={statusReguest} />
             <View style={styles.subHeader}>
                 <Image source={require('../../assets/Bedroom.jpg')} style={styles.image}></Image>
 
@@ -159,8 +133,8 @@ export default function Bedroom() {
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#868686' }}>Devices</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Button title='Lampada' ico={lamp} onPress={()=>command('100/rele4')}/>
-                    <Button title='Ventilador' ico={fan} onPress={()=>command('106/ventilador')} />
+                    <Button title='Lampada' ico={lamp} onPress={() => command('100/rele4')} />
+                    <Button title='Ventilador' ico={fan} onPress={() => command('106/ventilador')} />
                 </View>
                 <View style={styles.buttomDimer}>
                     <View style={{ width: "90%" }}>
@@ -171,12 +145,13 @@ export default function Bedroom() {
                             maximumTrackTintColor='#cdcdcd'
                             thumbTintColor='#868686'
                             onSlidingStart={dimerValor()}
+                            onValueChange={(valorDimer) => setSize(valorDimer.toFixed(0))}
                             value={size}
-                            onValueChange={ (valorDimer) => setSize(valorDimer.toFixed(0))}
-                            />
-                       
+
+                        />
+
                     </View>
-                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={()=>command('100/fade')}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
+                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={() => command('100/fade')}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
 
                 </View>
 

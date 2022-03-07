@@ -4,19 +4,20 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
+    status:string;
 
 }
 
-export default function Header({ title, ...rest }: ButtonProps) {
+export default function Header({ title, status, ...rest }: ButtonProps) {
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={{ width: 45, height: 35 }} >
+            <TouchableOpacity style={{ width: 45, height: 35 }}  >
                 <AntDesign name="back" size={35} color="#868686" />
             </TouchableOpacity>
 
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity style={{ width: 30, height: 25 }}>
-                <FontAwesome5 name="wifi" size={24} color="#868686" />
+                <FontAwesome5 name="wifi" size={24} color={status} />
             </TouchableOpacity>
         </View>
     )

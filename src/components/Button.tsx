@@ -9,7 +9,7 @@ interface ButtonProps extends TouchableOpacityProps {
 export default function Button({ title, ico, ...rest }: ButtonProps) {
     return (
         <TouchableOpacity {...rest} style={styles.container}>
-            <Image source={ico} style={{ width: 85, height: 85 }} />
+            <Image source={ico} style={{ width: 90, height: 90 }} />
             <Text style={styles.text}>
 
                 {title}
@@ -43,5 +43,6 @@ const styles = StyleSheet.create({
         fontSize: 21,
         color: '#868686',
         fontWeight: 'bold'
+        
     },
 })

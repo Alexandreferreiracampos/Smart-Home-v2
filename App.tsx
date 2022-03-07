@@ -1,11 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import Bedroom from './src/pages/Bedroom';
-
+import LivingRoom from './src/pages/Living-Room';
+import Routes from './src/routes';
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Bedroom />
-    </View>
+    
+      <Routes/>
+   
   );
 }
 
