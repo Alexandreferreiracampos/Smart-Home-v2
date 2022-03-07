@@ -1,31 +1,33 @@
 import { View, Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 'react-native'
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import {useNavigation} from '@react-navigation/core'
+import { useNavigation } from '@react-navigation/core'
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
-    status:string;
-
+    status: string;
 }
 
 export default function Header({ title, status, ...rest }: ButtonProps) {
 
     const navigation = useNavigation();
 
-    const navigationScreen=()=>{
+    const navigationScreen = () => {
         navigation.navigate('Home')
     }
+
+
     return (
         <View style={styles.header}>
             <TouchableOpacity style={{ width: 45, height: 35 }}  >
-                <AntDesign name="back" size={35} color="#868686" onPress={()=>navigationScreen()}/>
+                <AntDesign name="back" size={35} color="#868686" onPress={() => navigationScreen()} />
             </TouchableOpacity>
 
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity style={{ width: 30, height: 25 }}>
                 <FontAwesome5 name="wifi" size={24} color={status} />
             </TouchableOpacity>
+
         </View>
     )
 }
@@ -48,4 +50,5 @@ const styles = StyleSheet.create({
         color: '#868686'
 
     },
+
 })

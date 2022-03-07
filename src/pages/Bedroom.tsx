@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 80,
         opacity: 0.5
     },
+    
     titleDevices: {
         top: -20,
         left: -120,
