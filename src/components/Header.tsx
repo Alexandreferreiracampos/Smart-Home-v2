@@ -4,6 +4,7 @@ import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
 import { useState } from 'react';
 import ScreenModal from '../components/Screen-Modal';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -13,6 +14,21 @@ interface ButtonProps extends TouchableOpacityProps {
 export default function Header({ title, status, ...rest }: ButtonProps) {
 
   const [modalActive, setModalAtive] = useState(false);
+  const [validateData, setValidateData] = useState(true);
+  const [devices, setDevices] = useState({fan:'',light:'', hadBoard:''});
+
+  if(validateData == true){
+    async function loadStorgeUserName(){
+
+        const dataDevices = await AsyncStorage.getItem('@Device:quarton')
+        const objeto = JSON.parse(dataDevices || '');
+        setDevices(objeto)
+        console.log(devices)
+        setValidateData(false)
+    }
+    loadStorgeUserName()
+
+}
 
     const changeStatusModal = ()=>{
       
@@ -25,7 +41,12 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
     const navigationScreen = () => {
         navigation.navigate('Home')
     }
-
+    
+    const teste1=()=>{
+       
+        setValidateData(true)
+    
+    }
 
     return (
         <View style={styles.header}>
@@ -37,7 +58,7 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
             <TouchableOpacity style={{ width: 30, height: 25 }}>
                 <FontAwesome5 name="wifi" size={24} color={status} onPress={()=>setModalAtive(true)} />
             </TouchableOpacity>
-            <ScreenModal statusModal={modalActive} changeStatusModal={()=>changeStatusModal()}/>
+            <ScreenModal statusModal={modalActive} changeStatusModal={()=>changeStatusModal()} teste={()=>teste1()}/>
 
         </View>
     )

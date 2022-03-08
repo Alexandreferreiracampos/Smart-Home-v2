@@ -8,11 +8,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 interface ButtonProps extends TouchableOpacityProps{
   statusModal:boolean;
   
-  changeStatusModal:()=>void
+  changeStatusModal:()=>void;
+  teste:()=>void
     
 
 }
-export default function ScreenModal({ statusModal, changeStatusModal, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, changeStatusModal,teste, ...rest }: ButtonProps){
   
     const [valueFan, setValueFan] = useState('')
     const [valueLight, setValueLight] = useState('')
@@ -42,6 +43,7 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
         if(valueFan != '' || valueLight != '' || valueHeadBoard != ''){
           
           storeData()
+          teste()
           
         }else{
           ToastAndroid.showWithGravityAndOffset(
@@ -73,24 +75,6 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
           25,50 )}
     }
 
-    
-    const [devices, setDevices] = useState({fan:'',light:'', hadBoard:''});
-    /*const [getLight, setGetLight] = useState('');
-    const [getHeadBoard, setGetHeadBoard] = useState('');
-    */
-    
-    useEffect(() => {
-        async function loadStorgeUserName(){
-
-            const dataDevices = await AsyncStorage.getItem('@Device:quarton')
-            const objeto = JSON.parse(dataDevices);
-            setDevices(objeto)
-            console.log(devices)
-           
-        }
-        loadStorgeUserName()
-        
-    },[value,])
     
     return(
         <Modal
