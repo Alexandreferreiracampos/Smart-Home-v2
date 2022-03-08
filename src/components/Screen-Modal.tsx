@@ -17,11 +17,25 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
     const [valueFan, setValueFan] = useState('')
     const [valueLight, setValueLight] = useState('')
     const [valueHeadBoard, setValueHeadBoard] = useState('')
+    const [value, setValue] = useState({fan:'',light:'', hadBoard:''})
+
+    useEffect(()=>{
+      setValue({
+       
+          fan:valueFan,
+          light:valueLight, 
+          hadBoard:valueHeadBoard
+        
+      })
     
-    
+    },[valueFan, valueLight, valueHeadBoard])
+     
+  
+    /*
     const fan = valueFan;
     const Light = valueLight;
     const HeadBoard = valueHeadBoard;
+    */
     
   
     const salvarDevices =()=>{
@@ -44,10 +58,12 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
     const storeData = async ()=>{
       try{
         
-        
-        await AsyncStorage.setItem('@Devicequarto:fan', fan )
+        const jsonData = JSON.stringify(value)
+        await AsyncStorage.setItem('@Device:quarton', jsonData )
+        /*
         await AsyncStorage.setItem('@Devicequarto:Light', Light ) 
         await AsyncStorage.setItem('@Devicequarto:HeadBoard', HeadBoard )   
+        */
 
       }catch(e){
         ToastAndroid.showWithGravityAndOffset(
@@ -57,24 +73,24 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
           25,50 )}
     }
 
-    const [getFan, setGetFan] = useState('');
-    const [getLight, setGetLight] = useState('');
+    
+    const [devices, setDevices] = useState({fan:'',light:'', hadBoard:''});
+    /*const [getLight, setGetLight] = useState('');
     const [getHeadBoard, setGetHeadBoard] = useState('');
-
+    */
+    
     useEffect(() => {
         async function loadStorgeUserName(){
-            
-            const Fan = await AsyncStorage.getItem('@Devicequarto:fan')
-            const Light = await AsyncStorage.getItem('@Devicequarto:Light')
-            const HeadBoard = await AsyncStorage.getItem('@Devicequarto:HeadBoard')
-            setGetFan(Fan || '1')
-            setGetLight(Light || '1')
-            setGetHeadBoard(HeadBoard || '1')
-            
+
+            const dataDevices = await AsyncStorage.getItem('@Device:quarton')
+            const objeto = JSON.parse(dataDevices);
+            setDevices(objeto)
+            console.log(devices)
+           
         }
         loadStorgeUserName()
         
-    },[getFan, getLight, getHeadBoard])
+    },[value,])
     
     return(
         <Modal
@@ -93,20 +109,20 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
               <Text>Ventilador</Text>
               <TextInput
               style={styles.inputText}
-              placeholder={getFan}
+              placeholder={''}
               onChangeText={setValueFan}
               
               />
               <TextInput
               style={styles.inputText}
-              placeholder={getLight}
+              placeholder={'getLight'}
               onChangeText={setValueLight}
               
               
               />
               <TextInput
               style={styles.inputText}
-              placeholder={getHeadBoard}
+              placeholder={'getHeadBoard'}
               onChangeText={setValueHeadBoard}
               
               />
