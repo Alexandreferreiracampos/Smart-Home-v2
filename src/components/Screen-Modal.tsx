@@ -67,9 +67,9 @@ export default function ScreenModal({ statusModal, changeStatusModal, ...rest }:
             const Fan = await AsyncStorage.getItem('@Devicequarto:fan')
             const Light = await AsyncStorage.getItem('@Devicequarto:Light')
             const HeadBoard = await AsyncStorage.getItem('@Devicequarto:HeadBoard')
-            setGetFan(Fan || '')
-            setGetLight(Light || '')
-            setGetHeadBoard(HeadBoard || '')
+            setGetFan(Fan || '1')
+            setGetLight(Light || '1')
+            setGetHeadBoard(HeadBoard || '1')
             
         }
         loadStorgeUserName()
