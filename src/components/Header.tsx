@@ -11,30 +11,13 @@ interface ButtonProps extends TouchableOpacityProps {
     status: string;
 }
 
+
 export default function Header({ title, status, ...rest }: ButtonProps) {
 
-  const [modalActive, setModalAtive] = useState(false);
-  const [validateData, setValidateData] = useState(true);
-  const [devices, setDevices] = useState({fan:'',light:'', hadBoard:''});
-
-  if(validateData == true){
-    async function loadStorgeUserName(){
-
-        const dataDevices = await AsyncStorage.getItem('@Device:quarton')
-        const objeto = JSON.parse(dataDevices || '');
-        setDevices(objeto)
-        console.log(devices)
-        setValidateData(false)
-    }
-    loadStorgeUserName()
-
-}
-
-    const changeStatusModal = ()=>{
-      
-      setModalAtive(false)
-     
-    }
+ 
+  
+  
+    
 
     const navigation = useNavigation();
 
@@ -42,11 +25,7 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
         navigation.navigate('Home')
     }
     
-    const teste1=()=>{
-       
-        setValidateData(true)
     
-    }
 
     return (
         <View style={styles.header}>
@@ -56,9 +35,9 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
 
             <Text style={styles.title}>{title}</Text>
             <TouchableOpacity style={{ width: 30, height: 25 }}>
-                <FontAwesome5 name="wifi" size={24} color={status} onPress={()=>setModalAtive(true)} />
+                <FontAwesome5 name="wifi" size={24} color={status} />
             </TouchableOpacity>
-            <ScreenModal statusModal={modalActive} changeStatusModal={()=>changeStatusModal()} teste={()=>teste1()}/>
+           
 
         </View>
     )

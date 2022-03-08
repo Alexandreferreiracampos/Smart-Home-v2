@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import { Entypo } from '@expo/vector-icons';
 import fan from '../../assets/fan.png';
 import lamp from '../../assets/lamp.png';
 import Slider from '@react-native-community/slider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 var dimer0 = false
 var dimer10 = false
@@ -19,7 +20,24 @@ var dimer80 = false
 var dimer90 = false
 var dimer100 = false
 
+
 export default function Bedroom() {
+
+    const [validateData, setValidateData] = useState(true);
+    const [devices, setDevices] = useState({fan:'',Bedroom:'',livingRoom:''});
+
+    if(validateData == true){
+    async function loadStorgeUserName(){
+
+        const dataDevices = await AsyncStorage.getItem('@Device:quarton')
+        const objeto = JSON.parse(dataDevices || '');
+        setDevices(objeto)
+        console.log(devices.fan)
+        setValidateData(false)
+        }
+    loadStorgeUserName()
+
+    }
 
     const [size, setSize] = useState(0);
     const [statusSize, setStatusSize] = useState(0);
@@ -27,7 +45,7 @@ export default function Bedroom() {
 
     const command = (valor: any) => {
 
-        let url = "http://192.168.0."
+        let url = 'http://'+valor
         let req = new XMLHttpRequest();
 
         req.onreadystatechange = () => {
@@ -38,7 +56,7 @@ export default function Bedroom() {
             }
         }
 
-        req.open('GET', url + valor)
+        req.open('GET', url)
         req.send()
 
         switch (valor) {
@@ -54,67 +72,67 @@ export default function Bedroom() {
             dimer0 = false
             dimer10 = false
             dimer0 = false
-            command('100/0')
+            command(devices.Bedroom+'/0')
           }
           if(size == 1 && dimer10 == false ){
             dimer0 = true
             dimer10 = true
             dimer20 = false 
-            command('100/1')
+            command(devices.Bedroom+'/1')
           }
           if(size == 2 && dimer20 == false ){
             dimer10 = false
             dimer20 = true
             dimer30 = false
-            command('100/2')
+            command(devices.Bedroom+'/2')
           }
           if(size == 3 && dimer30 == false ){
             dimer20 = false
             dimer30 = true
             dimer40 = false
-            command('100/3')
+            command(devices.Bedroom+'/3')
           }
           if(size == 4 && dimer40 == false ){
             dimer30 = false
             dimer40 = true
             dimer50 = false
-            command('100/4')
+            command(devices.Bedroom+'/4')
           }
           if(size == 5 && dimer50 == false ){
             dimer40 = false
             dimer50 = true
             dimer60 = false
-            command('100/5')
+            command(devices.Bedroom+'/5')
           }
           if(size == 6 && dimer60 == false ){
             dimer50 = false
             dimer60 = true
             dimer70 = false
-            command('100/6')
+            command(devices.Bedroom+'/6')
           }
           if(size == 7 && dimer70 == false ){
             dimer60 = false
             dimer70 = true
             dimer80 = false
-            command('100/7')
+            command(devices.Bedroom+'/7')
           }
           if(size == 8 && dimer80 == false ){
             dimer70 = false
             dimer80 = true
             dimer90 = false
-            command('100/8')
+            command(devices.Bedroom+'/8')
           }
           if(size == 9 && dimer90 == false ){
             dimer80 = false
             dimer90 = true
             dimer100 = false
-            command('100/9')
+            command(devices.Bedroom+'/9')
           }
           if(size == 10 && dimer100 == false ){
             dimer90 = false
             dimer100 = true
             dimer0 = true
-            command('100/10')
+            command(devices.Bedroom+'/10')
           }
         
 
@@ -123,8 +141,9 @@ export default function Bedroom() {
 
     return (
         <View style={styles.container}>
-            <Header title='Quarto' status={statusReguest} />
+            <Header title={'Quarto'} status={statusReguest} />
             <View style={styles.subHeader}>
+                
                 <Image source={require('../../assets/Bedroom.jpg')} style={styles.image}></Image>
 
             </View>
@@ -133,8 +152,8 @@ export default function Bedroom() {
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#868686' }}>Devices</Text>
                 </View>
                 <View style={{ flexDirection: 'row' }}>
-                    <Button title='Lampada' ico={lamp} onPress={() => command('100/rele4')} />
-                    <Button title='Ventilador' ico={fan} onPress={() => command('106/ventilador')} />
+                    <Button title='Lampada' ico={lamp} onPress={() => command(devices.Bedroom+"/rele4")} />
+                    <Button title='Ventilador' ico={fan} onPress={() => command(devices.fan+"/ventilador")} />
                 </View>
                 <View style={styles.buttomDimer}>
                     <View style={{ width: "90%" }}>
