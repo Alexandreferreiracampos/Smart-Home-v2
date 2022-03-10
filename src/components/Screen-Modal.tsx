@@ -12,11 +12,11 @@ interface ButtonProps extends TouchableOpacityProps{
   ipLivingRoom:String
   
   changeStatusModal:()=>void;
-  teste:()=>void
+  reloadDataSave:()=>void
     
 
 }
-export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom,changeStatusModal,teste, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom,changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
     
 
 
@@ -40,7 +40,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
         if(valueFan != '' || valueBedroom != '' || valuelivingRoom != ""){
           
           storeData()
-          teste()
+          reloadDataSave()
           
         }else{
           ToastAndroid.showWithGravityAndOffset(

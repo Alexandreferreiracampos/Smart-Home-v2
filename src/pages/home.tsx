@@ -21,7 +21,6 @@ export default function Home(){
         const dataDevices = await AsyncStorage.getItem('@Device:quarton')
         const objeto = JSON.parse(dataDevices || '');
         setDevices(objeto)
-        console.log(devices)
         setValidateData(false)
         }
     loadStorgeUserName()
@@ -39,7 +38,7 @@ export default function Home(){
        
       }
 
-    const teste1=()=>{
+    const reloadDataSave=()=>{
        
         setValidateData(true)
     
@@ -53,7 +52,7 @@ export default function Home(){
             <TouchableOpacity onPress={()=>navigatioScreen('LivingRoom')}><Text>Sala</Text></TouchableOpacity>
             <TouchableOpacity onPress={()=>setModalAtive(true)} ><Text>Config</Text></TouchableOpacity>
             
-            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} changeStatusModal={()=>changeStatusModal()} teste={()=>teste1()} />
+            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} changeStatusModal={()=>changeStatusModal()} reloadDataSave={()=>reloadDataSave()} />
 
 
         </View>

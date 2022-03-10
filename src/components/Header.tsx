@@ -2,9 +2,9 @@ import { View, Text, TouchableOpacity, StyleSheet, TouchableOpacityProps } from 
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/core';
-import { useState } from 'react';
-import ScreenModal from '../components/Screen-Modal';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import * as Animatable from 'react-native-animatable';
+
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -33,9 +33,9 @@ export default function Header({ title, status, ...rest }: ButtonProps) {
                 <AntDesign name="back" size={35} color="#868686" onPress={() => navigationScreen()} />
             </TouchableOpacity>
 
-            <Text style={styles.title}>{title}</Text>
+            <Animatable.Text animation="slideInLeft"  style={styles.title}>{title}</Animatable.Text>
             <TouchableOpacity style={{ width: 30, height: 25 }}>
-                <FontAwesome5 name="wifi" size={24} color={status} />
+                <Animatable.Text  animation="slideInRight" delay={500}><FontAwesome5 name="wifi" size={24} color={status} /></Animatable.Text>
             </TouchableOpacity>
            
 
