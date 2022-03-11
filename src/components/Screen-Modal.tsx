@@ -83,7 +83,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
           <View style={styles.modalView}>
           
             <View style={styles.headerModal}>
-              <Text style={{fontSize:20}}>Configuar Devices</Text>
+              <Text style={{fontSize:20}}>Configurar Devices</Text>
               <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="black" />
             </View>
             <View style={styles.container}>
