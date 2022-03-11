@@ -7,6 +7,7 @@ import fan from '../../assets/fan.png';
 import lamp from '../../assets/lamp.png';
 import Slider from '@react-native-community/slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Animatable from 'react-native-animatable';
 
 var dimer0 = false
 var dimer10 = false
@@ -32,7 +33,7 @@ export default function Bedroom() {
         const dataDevices = await AsyncStorage.getItem('@Device:quarton')
         const objeto = JSON.parse(dataDevices || '');
         setDevices(objeto)
-        console.log(devices.fan)
+        
         setValidateData(false)
         }
     loadStorgeUserName()
@@ -60,7 +61,7 @@ export default function Bedroom() {
         req.send()
 
         switch (valor) {
-            case '100/fade':
+            case devices.Bedroom+'/fade':
                 setSize(0)
                 break;
 
@@ -140,7 +141,7 @@ export default function Bedroom() {
 
 
     return (
-        <View style={styles.container}>
+        <Animatable.View style={styles.container}>
             <Header title={'Quarto'} status={statusReguest} />
             <View style={styles.subHeader}>
                 
@@ -151,10 +152,10 @@ export default function Bedroom() {
                 <View style={styles.titleDevices}>
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#868686' }}>Devices</Text>
                 </View>
-                <View style={{ flexDirection: 'row' }}>
-                    <Button title='Lampada' ico={lamp} onPress={() => command(devices.Bedroom+"/rele4")} />
-                    <Button title='Ventilador' ico={fan} onPress={() => command(devices.fan+"/ventilador")} />
-                </View>
+                <Animatable.View animation="slideInUp" style={{ flexDirection: 'row'}}>
+                    <Button title='Lampada' ico={lamp} width={110} height={110} onPress={() => command(devices.Bedroom+"/rele4")} />
+                    <Button title='Ventilador' ico={fan} width={110} height={110} onPress={() => command(devices.fan+"/ventilador")} />
+                </Animatable.View>
                 <View style={styles.buttomDimer}>
                     <View style={{ width: "90%" }}>
                         <Slider
@@ -170,13 +171,13 @@ export default function Bedroom() {
                         />
 
                     </View>
-                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={() => command('100/fade')}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
+                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={() => command(devices.Bedroom+'/fade')}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
 
                 </View>
 
 
             </View>
-        </View>
+        </Animatable.View>
     )
 }
 
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         width: "100%",
-        height: '20%',
+        height: '100%',
         alignItems: 'center',
 
     },
@@ -203,29 +204,28 @@ const styles = StyleSheet.create({
     },
     
     titleDevices: {
-        top: -20,
-        left: -120,
+        top: '-5%',
+        left: '-31%',
     },
     containerButton: {
-        top: -38,
+        top: '-5%',
         position: "relative",
         width: '100%',
-        paddingTop: 60,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
+        paddingTop: '3%',
+        borderTopLeftRadius: 32,
+        borderTopRightRadius: 32,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'rgb(243,243,243)'
 
     },
     buttomDimer: {
-        top: 20,
-        width: "78%",
-        height: 50,
+        top: '4%',
+        width: "84%",
+        height: '14%',
         borderRadius: 10,
         backgroundColor: 'white',
-        marginTop: 30,
-        marginBottom: 10,
+        marginTop: '7%',
         flexDirection: 'row',
         justifyContent: "space-between",
         alignItems: 'center',

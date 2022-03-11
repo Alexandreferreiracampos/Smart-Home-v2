@@ -6,12 +6,15 @@ import * as Animatable from 'react-native-animatable';
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
     ico: object;
+    width:Number;
+    height:Number;
+
 }
 
-export default function Button({ title, ico, ...rest }: ButtonProps) {
+export default function Button({ title, ico, width, height,  ...rest }: ButtonProps) {
     return (
         <TouchableOpacity {...rest} style={styles.container}>
-            <Animatable.Image animation="flipInX" source={ico} style={{ width: 90, height: 90 }} />
+            <Image source={ico} style={{ width: width, height: height }} />
             <Text style={styles.text}>
 
                 {title}
@@ -22,9 +25,7 @@ export default function Button({ title, ico, ...rest }: ButtonProps) {
 
 const styles = StyleSheet.create({
     container: {
-
-        width: 150,
-        height: 150,
+        width: '40%',
         backgroundColor: 'white',
         margin: 10,
         padding: 20,
@@ -44,7 +45,8 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 21,
         color: '#868686',
-        fontWeight: 'bold'
-        
+        fontWeight: 'bold',
+        bottom:'-8%'
+     
     },
 })

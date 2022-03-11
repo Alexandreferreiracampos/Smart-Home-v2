@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { StyleSheet, Text, View, Image, Modal, TouchableOpacity } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+
 
 import Header from '../components/Header';
 

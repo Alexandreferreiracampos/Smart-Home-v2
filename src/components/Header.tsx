@@ -14,28 +14,17 @@ interface ButtonProps extends TouchableOpacityProps {
 
 export default function Header({ title, status, ...rest }: ButtonProps) {
 
- 
-  
-  
-    
-
     const navigation = useNavigation();
-
-    const navigationScreen = () => {
-        navigation.navigate('Home')
-    }
-    
-    
 
     return (
         <View style={styles.header}>
-            <TouchableOpacity style={{ width: 45, height: 35 }}  >
-                <AntDesign name="back" size={35} color="#868686" onPress={() => navigationScreen()} />
+            <TouchableOpacity style={{ width: 45, height: 35}}  >
+                <Animatable.Text animation="slideInLeft" onPress={() => navigation.navigate('Home')}><AntDesign name="back" size={35} color="#868686"/></Animatable.Text>
             </TouchableOpacity>
 
             <Animatable.Text animation="slideInLeft"  style={styles.title}>{title}</Animatable.Text>
-            <TouchableOpacity style={{ width: 30, height: 25 }}>
-                <Animatable.Text  animation="slideInRight" delay={500}><FontAwesome5 name="wifi" size={24} color={status} /></Animatable.Text>
+            <TouchableOpacity style={{ width: 30, height: 25}}>
+                <Animatable.Text  animation="slideInRight" delay={500} style={{ width: 40, height: 30}}><FontAwesome5 name="wifi" size={24} color={status} /></Animatable.Text>
             </TouchableOpacity>
            
 
