@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ToastAndroid } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ToastAndroid, Modal } from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -22,7 +22,7 @@ export default function Home() {
     const navigation = useNavigation();
 
 
-    const [devices, setDevices] = useState({ fan: '', Bedroom: '', livingRoom: '' });
+    const [devices, setDevices] = useState({ fan: '', Bedroom: '', livingRoom: '', name: '' });
 
     if (validateData == true) {
         async function loadStorgeUserName() {
@@ -115,10 +115,10 @@ export default function Home() {
 
         <View style={styles.container}>
             
-            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
+            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} name={devices.name} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
            
             <View style={styles.header}>
-                <Animatable.Text animation="slideInLeft" style={styles.title}>Olá Alexandre</Animatable.Text>
+                <Animatable.Text animation="slideInLeft" style={styles.title}>Olá  {devices.name}</Animatable.Text>
                 <Animatable.Text animation="slideInRight" onPress={() => setModalAtive(true)}><FontAwesome name="gears" size={24} color='#868686' /></Animatable.Text>
             </View>
 

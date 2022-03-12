@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput,TouchableOpacityProps, ToastAndroid} from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput,TouchableOpacityProps, ToastAndroid, TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -10,34 +10,37 @@ interface ButtonProps extends TouchableOpacityProps{
   ipFan:String;
   ipBedroom:String;
   ipLivingRoom:String
+  name:String
   
   changeStatusModal:()=>void;
   reloadDataSave:()=>void
     
 
 }
-export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom,changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom, name,changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
     
 
 
     const [valueFan, setValueFan] = useState('')
     const [valueBedroom, setValueBedroom] = useState('')
     const [valuelivingRoom, setValueLivingRoom] = useState('')
-    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:''})
+    const [valueName, setValueName] = useState('')
+    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:'', name:''})
 
     useEffect(()=>{
       setValue({
        
           fan:valueFan,
           Bedroom:valueBedroom, 
-          livingRoom:valuelivingRoom
+          livingRoom:valuelivingRoom,
+          name:valueName
         
       })
     
-    },[valueFan, valueBedroom, valuelivingRoom])
+    },[valueFan, valueBedroom, valuelivingRoom, valueName ])
      
     const salvarDevices =()=>{
-        if(valueFan != '' || valueBedroom != '' || valuelivingRoom != ""){
+        if(valueFan != '' || valueBedroom != '' || valuelivingRoom != "" || valueName != ''){
           
           storeData()
           reloadDataSave()
@@ -77,16 +80,26 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
         statusBarTranslucent={true}
         visible={statusModal}
         >
-
+       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <View style={styles.outerView}>
     
           <View style={styles.modalView}>
           
             <View style={styles.headerModal}>
+              
               <Text style={{fontSize:20}}>Configurar Devices</Text>
               <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="black" />
             </View>
             <View style={styles.container}>
+           
+            <View style={{width:'100%', paddingLeft:20}}><Text>Nome de Uusário</Text></View>
+            <TextInput
+              style={styles.inputText}
+              placeholder={name || 'Nome de Uusário'}
+              onChangeText={setValueName}
+              
+              />
+
               <View style={{width:'100%', paddingLeft:20}}><Text>Ventilador</Text></View>
               <TextInput
               style={styles.inputText}
@@ -111,14 +124,18 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               onChangeText={setValueLivingRoom}
               
               />
+              
               <TouchableOpacity style={styles.buttonSalvar} onPress={salvarDevices}><Text>Salvar</Text></TouchableOpacity>
              
-
+              
             </View>
-          </View>
+          
+            
+            </View>
+          
         
           </View>
-          
+          </TouchableWithoutFeedback>
       </Modal>
       
     )
