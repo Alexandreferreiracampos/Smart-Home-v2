@@ -1,7 +1,5 @@
 import { Text, StyleSheet, TouchableOpacity, TouchableOpacityProps, Image } from 'react-native'
 
-import * as Animatable from 'react-native-animatable';
-
 
 interface ButtonProps extends TouchableOpacityProps {
     title: string;
@@ -14,7 +12,7 @@ interface ButtonProps extends TouchableOpacityProps {
 export default function Button({ title, ico, width, height,  ...rest }: ButtonProps) {
     return (
         <TouchableOpacity {...rest} style={styles.container}>
-            <Image source={ico} style={{ width: width, height: height }} />
+            <Image source={ico} style={{ width: width , height: height}} />
             <Text style={styles.text}>
 
                 {title}

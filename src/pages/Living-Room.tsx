@@ -2,8 +2,8 @@ import { useState } from 'react';
 import { StyleSheet, Text, View, Image, Modal, TouchableOpacity,ScrollView } from 'react-native';
 import Button from '../components/Button';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import fan from '../assets/fan.png';
-import lamp from '../assets/lamp.png';
+import led from '../assets/led.png';
+import lustre from '../assets/lustre.png';
 
 import * as Animatable from 'react-native-animatable';
 
@@ -61,8 +61,8 @@ export default function LivingRoom() {
                 </View>
              
                 <Animatable.View animation="slideInUp" style={{ flexDirection: 'row'}}>
-                    <Button title='Lustre' ico={lamp} width={80} height={80} onPress={() => command(devices.livingRoom+"/?rele6'")} />
-                    <Button title='Sanca' ico={lamp} width={80} height={80} onPress={() => command(devices.livingRoom+"/?rele5'")} />
+                    <Button title='Lustre' ico={lustre} width={80} height={80} onPress={() => command(devices.livingRoom+"/?rele6'")} />
+                    <Button title='Sanca' ico={led} width={80} height={80} onPress={() => command(devices.livingRoom+"/?rele5'")} />
                     
                 </Animatable.View>
                 

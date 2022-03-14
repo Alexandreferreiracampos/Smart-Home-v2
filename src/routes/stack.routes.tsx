@@ -3,6 +3,7 @@ import Bedroom from '../pages/Bedroom';
 import LivingRoom from '../pages/Living-Room';
 import Home from '../pages/Home';
 import GamerRoom from '../pages/Gamer-Room'
+import PartyArea from '../pages/Party-Area';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
@@ -38,6 +39,11 @@ const AppRoutes: React.FC = () => (
         <stackRoutes.Screen
             name="GamerRoom"
             component={GamerRoom}
+        />
+
+        <stackRoutes.Screen
+            name="PartyArea"
+            component={PartyArea}
         />
 
 
