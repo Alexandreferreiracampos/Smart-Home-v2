@@ -3,8 +3,8 @@ import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
 import { Entypo } from '@expo/vector-icons';
-import fan from '../../assets/fan.png';
-import lamp from '../../assets/lamp.png';
+import fan from '../assets/fan.png';
+import lamp from '../assets/lamp.png';
 import Slider from '@react-native-community/slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
@@ -26,6 +26,9 @@ export default function Bedroom() {
 
     const [validateData, setValidateData] = useState(true);
     const [devices, setDevices] = useState({fan:'',Bedroom:'',livingRoom:''});
+    const [size, setSize] = useState(0);
+    const [statusSize, setStatusSize] = useState(0);
+    const [statusReguest, setReguest] = useState('#39d76c');
 
     if(validateData == true){
     async function loadStorgeUserName(){
@@ -39,10 +42,6 @@ export default function Bedroom() {
     loadStorgeUserName()
 
     }
-
-    const [size, setSize] = useState(0);
-    const [statusSize, setStatusSize] = useState(0);
-    const [statusReguest, setReguest] = useState('#39d76c');
 
     const command = (valor: any) => {
 
@@ -145,7 +144,7 @@ export default function Bedroom() {
             <Header title={'Quarto'} status={statusReguest} />
             <View style={styles.subHeader}>
                 
-                <Image source={require('../../assets/Bedroom.jpg')} style={styles.image}></Image>
+                <Image source={require('../assets/Bedroom.jpg')} style={styles.image}></Image>
 
             </View>
             <View style={styles.containerButton}>
@@ -153,8 +152,8 @@ export default function Bedroom() {
                     <Text style={{ fontSize: 20, fontWeight: 'bold', color: '#868686' }}>Devices</Text>
                 </View>
                 <Animatable.View animation="slideInUp" style={{ flexDirection: 'row'}}>
-                    <Button title='Lampada' ico={lamp} width={110} height={110} onPress={() => command(devices.Bedroom+"/rele4")} />
-                    <Button title='Ventilador' ico={fan} width={110} height={110} onPress={() => command(devices.fan+"/ventilador")} />
+                    <Button title='Luz' ico={lamp} width={80} height={80} onPress={() => command(devices.Bedroom+"/rele4")} />
+                    <Button title='Ventilador' ico={fan} width={80} height={80} onPress={() => command(devices.fan+"/ventilador")} />
                 </Animatable.View>
                 <View style={styles.buttomDimer}>
                     <View style={{ width: "90%" }}>

@@ -1,6 +1,5 @@
-import { StyleSheet, Text, View } from 'react-native';
-import Bedroom from './src/pages/Bedroom';
-import LivingRoom from './src/pages/Living-Room';
+import { StyleSheet} from 'react-native';
+
 import Routes from './src/routes';
 export default function App() {
   return (

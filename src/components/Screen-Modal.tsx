@@ -2,22 +2,25 @@ import { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity, StyleSheet, Modal, TextInput,TouchableOpacityProps, ToastAndroid, TouchableWithoutFeedback, Keyboard} from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
 interface ButtonProps extends TouchableOpacityProps{
   statusModal:boolean;
-  ipFan:String;
-  ipBedroom:String;
-  ipLivingRoom:String
-  name:String
+  ipFan:string;
+  ipBedroom:string;
+  ipLivingRoom:string
+  name:string
+  ipEscritorio:string
+  ipEdicula:string
   
   changeStatusModal:()=>void;
   reloadDataSave:()=>void
     
 
 }
-export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom, name,changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom, name, ipEscritorio, ipEdicula, changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
     
 
 
@@ -25,15 +28,20 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
     const [valueBedroom, setValueBedroom] = useState('')
     const [valuelivingRoom, setValueLivingRoom] = useState('')
     const [valueName, setValueName] = useState('')
-    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:'', name:''})
+    const [valueEscritorio, setValueEscritorio] = useState('')
+    const [valueEdicula, setValueEdicula] = useState('')
+    
+    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:'', name:'',escritorio:'', edicula:''})
 
     useEffect(()=>{
       setValue({
        
-          fan:valueFan,
-          Bedroom:valueBedroom, 
-          livingRoom:valuelivingRoom,
-          name:valueName
+          fan:valueFan || ipFan,
+          Bedroom:valueBedroom || ipBedroom, 
+          livingRoom:valuelivingRoom || ipLivingRoom,
+          name:valueName || name,
+          escritorio:valueEscritorio || ipEscritorio,
+          edicula:valueEdicula || ipEdicula
         
       })
     
@@ -91,6 +99,8 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="black" />
             </View>
             <View style={styles.container}>
+            
+            <ScrollView contentContainerStyle={styles.environmentList} showsHorizontalScrollIndicator={false}>
            
             <View style={{width:'100%', paddingLeft:20}}><Text>Nome de Uusário</Text></View>
             <TextInput
@@ -124,6 +134,26 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               onChangeText={setValueLivingRoom}
               
               />
+              <View style={{width:'100%', paddingLeft:20}}><Text>Escritório</Text></View>
+              <TextInput
+              style={styles.inputText}
+              placeholder={ipEscritorio || 'IP Device Escritório'}
+              onChangeText={setValueFan}
+              
+              />
+
+              <View style={{width:'100%', paddingLeft:20}}><Text>Edícula</Text></View>
+              <TextInput
+              style={styles.inputText}
+              placeholder={ipEdicula || 'IP Device Edícula'}
+              onChangeText={setValueFan}
+              
+              />
+        
+             
+              
+
+              </ScrollView>
               
               <TouchableOpacity style={styles.buttonSalvar} onPress={salvarDevices}><Text>Salvar</Text></TouchableOpacity>
              
@@ -192,5 +222,11 @@ const styles = StyleSheet.create({
     alignItems:'center',
     borderRadius:18
 
-  }
+  },
+  environmentList:{
+    justifyContent:'center',
+    alignItems:'center',
+    paddingVertical:40
+
+}
 })

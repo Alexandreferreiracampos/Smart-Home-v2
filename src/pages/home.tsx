@@ -1,14 +1,16 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image, ToastAndroid, Modal } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet, Image, ToastAndroid, Modal, ScrollView} from 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ScreenModal from '../components/Screen-Modal';
 import { FontAwesome } from '@expo/vector-icons';
 import *as Animatable from 'react-native-animatable';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import Button from '../components/Button';
-import BTBedroom from '../../assets/BTBedroom.png';
-import BTLivingRoom from '../../assets/BTLiving-Room.png';
+import Gate from '../assets/gate.png';
+import BTBedroom from '../assets/quarto.png';
+import BTLivingRoom from '../assets/sofa.png';
+import escritorio from '../assets/escritorio.png';
+import churrasco from '../assets/churrasco.png';
 
 import * as LocalAuthentication from 'expo-local-authentication';
 
@@ -19,10 +21,13 @@ export default function Home() {
     const [modalActive, setModalAtive] = useState(false);
     const [validateData, setValidateData] = useState(true);
     const [statusGaragem, setGaragem] = useState('garage-variant');
+    const [activeTextLeds, setActiveTextLeds] = useState(false)
+    const [activeTextArandela, setActiveTextArandela] = useState(false)
+    const [activeTextGaragem, setActiveTextGaragem] = useState(false)
     const navigation = useNavigation();
 
 
-    const [devices, setDevices] = useState({ fan: '', Bedroom: '', livingRoom: '', name: '' });
+    const [devices, setDevices] = useState({ fan:'',Bedroom:'',livingRoom:'', name:'',escritorio:'', edicula:'' });
 
     if (validateData == true) {
         async function loadStorgeUserName() {
@@ -69,6 +74,19 @@ export default function Home() {
         req.open('GET', url)
         req.send()
 
+        switch (valor) {
+            case devices.livingRoom+"/rele1":
+                setActiveTextLeds(!activeTextLeds)
+                break;
+            case devices.livingRoom+"/?rele4":
+                setActiveTextArandela(!activeTextArandela)
+                    break;
+            case devices.livingRoom+"?rele3":
+                setActiveTextGaragem(!activeTextGaragem)
+                break;
+
+        }
+
 
     }
 
@@ -84,6 +102,8 @@ export default function Home() {
         if(authenticationBiometric.success){
           openGate() 
         }
+
+
         
       };
       
@@ -115,31 +135,38 @@ export default function Home() {
 
         <View style={styles.container}>
             
-            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} name={devices.name} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
+            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} name={devices.name} ipEdicula={devices.edicula} ipEscritorio={devices.escritorio} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
            
             <View style={styles.header}>
-                <Animatable.Text animation="slideInLeft" style={styles.title}>Olá  {devices.name}</Animatable.Text>
+                <Animatable.Text animation="slideInLeft" style={styles.title}>Olá {devices.name}</Animatable.Text>
                 <Animatable.Text animation="slideInRight" onPress={() => setModalAtive(true)}><FontAwesome name="gears" size={24} color='#868686' /></Animatable.Text>
             </View>
 
             <View style={styles.subHeader}>
-                <Image source={require('../../assets/home.jpeg')} style={styles.image}></Image>
+                <Image source={require('../assets/home.jpeg')} style={styles.image}></Image>
             </View>
 
             <View style={{ width: "100%", height: "9%", backgroundColor: 'white', justifyContent: 'center', alignItems: 'center',flexDirection: 'row' }}>
                 <View style={{ width: 130, height: 130, borderRadius: 75, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
+                <TouchableOpacity onPress={() => biometric()}>
                     <View style={styles.ButtonGate}>
-                        <MaterialCommunityIcons name={statusGaragem} size={60} color='#868686' onPress={() => biometric()} />
+                    <Image source={Gate} style={{ width: '60%', height: '60%' }} />
                     </View>
+                </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")}><Text style={{color: '#868686',fontWeight: 'bold',}}>Leds</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Text style={{color: '#868686',fontWeight: 'bold',}}>Arandelas</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Text style={{color: '#868686',fontWeight: 'bold',}}>Garagem</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")} ><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
              </View>
 
-            <View style={styles.containerButton}>
-                <Button title='Sala' ico={BTLivingRoom} width={140} height={140} onPress={() => navigatioScreen('LivingRoom')} />
-                <Button title='Quarto' ico={BTBedroom} width={140} height={140} onPress={() => navigatioScreen('Bedroom')} />
+            <View style={styles.containerButton} >
+                <ScrollView horizontal contentContainerStyle={styles.environmentList} showsHorizontalScrollIndicator={false} >
+                <Button title='Sala' ico={BTLivingRoom} width={90} height={90} onPress={() => navigatioScreen('LivingRoom')} />
+                <Button title='Quarto' ico={BTBedroom} width={90} height={90} onPress={() => navigatioScreen('Bedroom')} />
+                <Button title='Edícula' ico={churrasco} width={90} height={90} />
+                <Button title='Escritório' ico={escritorio} width={90} height={90} onPress={() => navigatioScreen('GamerRoom')} />
+                
+                </ScrollView>
             </View>
 
         </View>
@@ -166,6 +193,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#868686'
 
+    },
+    titleButton: {
+        color: '#868686',
+        fontWeight: 'bold'
+    },
+    titleButtonActive: {
+        color: '#5994ec',
+        fontWeight: 'bold'
     },
     subHeader: {
         width: "100%",
@@ -203,7 +238,7 @@ const styles = StyleSheet.create({
         height:"59%",
         margin:5,
         backgroundColor:'rgb(243,243,243)',
-        borderRadius:20,
+        borderRadius:10,
         justifyContent:'center',
         alignItems:'center',
         shadowColor: "#000",
@@ -226,5 +261,12 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(243,243,243)'
 
     },
+    environmentList:{
+        width:'190%',
+        height:"100%",
+        justifyContent:'center',
+        alignItems:'center',
+        paddingHorizontal:"42%"
+    }
 
 })

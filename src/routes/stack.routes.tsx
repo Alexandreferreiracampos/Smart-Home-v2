@@ -1,11 +1,13 @@
 import React from 'react'
 import Bedroom from '../pages/Bedroom';
 import LivingRoom from '../pages/Living-Room';
-import Home from '../pages/home';
+import Home from '../pages/Home';
+import GamerRoom from '../pages/Gamer-Room'
 
 import { createStackNavigator } from '@react-navigation/stack';
 
 const stackRoutes = createStackNavigator();
+
 
 const AppRoutes: React.FC = () => (
     <stackRoutes.Navigator
@@ -32,6 +34,12 @@ const AppRoutes: React.FC = () => (
             name="LivingRoom"
             component={LivingRoom}
         />
+
+        <stackRoutes.Screen
+            name="GamerRoom"
+            component={GamerRoom}
+        />
+
 
     </stackRoutes.Navigator>
 
