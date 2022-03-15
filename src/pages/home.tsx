@@ -11,7 +11,7 @@ import BTBedroom from '../assets/Bedroom.png';
 import BTLivingRoom from '../assets/sofa.png';
 import escritorio from '../assets/escritorio.png';
 import churrasco from '../assets/churrasco.png';
-
+import lamp from '../assets/lamp.png'
 import * as LocalAuthentication from 'expo-local-authentication';
 
 
@@ -145,9 +145,9 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")} ><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")} ><Image source={lamp} style={{width:30, height: 30}}></Image><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Image source={lamp} style={{width:25, height: 25}}></Image><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Image source={lamp} style={{width:25, height: 25}}></Image><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
              </View>
 
             <View style={styles.containerButton} >
@@ -226,7 +226,7 @@ const styles = StyleSheet.create({
     },
     button:{
         width:"20%",
-        height:"59%",
+        height:"80%",
         margin:5,
         backgroundColor:'rgb(243,243,243)',
         borderRadius:10,
