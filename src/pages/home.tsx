@@ -137,7 +137,7 @@ export default function Home() {
                 <Image source={require('../assets/home.jpeg')} style={styles.image}></Image>
             </View>
 
-            <View style={{ width: "100%", height: "9%", backgroundColor: 'white', justifyContent: 'center', alignItems: 'center',flexDirection: 'row' }}>
+            <View style={{top:-28, width: "100%", height: "9%", backgroundColor: 'white', justifyContent: 'center', alignItems: 'center',flexDirection: 'row', borderTopRightRadius:20, borderBottomRightRadius:20 }}>
                 <View style={{ width: 130, height: 130, borderRadius: 75, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => biometric()}>
                     <View style={styles.ButtonGate}>
@@ -145,9 +145,9 @@ export default function Home() {
                     </View>
                 </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")} ><Image source={lamp} style={{width:30, height: 30}}></Image><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Image source={lamp} style={{width:25, height: 25}}></Image><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Image source={lamp} style={{width:25, height: 25}}></Image><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/rele1")} ><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"/?rele4")}><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>command(devices.livingRoom+"?rele3")}><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
              </View>
 
             <View style={styles.containerButton} >
@@ -225,8 +225,8 @@ const styles = StyleSheet.create({
 
     },
     button:{
-        width:"20%",
-        height:"80%",
+        width:"19%",
+        height:"56%",
         margin:5,
         backgroundColor:'rgb(243,243,243)',
         borderRadius:10,
