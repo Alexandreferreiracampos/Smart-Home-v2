@@ -113,19 +113,29 @@ export default function Home() {
         });
 
         if (authenticationBiometric.success) {
-            remotePortao()
+            remotePortao("true")
+        }else{
+            remotePortao("false")
         }
 
     };
 
-    const remotePortao=()=>{
+    const remotePortao=(value:any)=>{
 
-        let url = 'coloque aqui link do firebase'
+        let url = 'Link firebase aqui'
         let req = new XMLHttpRequest();
         req.open('PUT', url)
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-        req.send(JSON.stringify("true"));
-        console.log('Enviado')
+        req.send(JSON.stringify(value));
+
+        ToastAndroid.showWithGravityAndOffset(
+            "Acionando Portão Remotamente",
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            25,
+            50
+        );
+        
 
     }
 
