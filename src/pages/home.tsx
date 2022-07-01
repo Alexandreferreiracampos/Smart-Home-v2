@@ -103,6 +103,34 @@ export default function Home() {
 
     };
 
+    const biometricOnLong = async () => {
+
+
+        const authenticationBiometric = await LocalAuthentication.authenticateAsync({
+            promptMessage: "Acionar Remotamente Portão da Garagem?",
+            cancelLabel: "Cancelar",
+            disableDeviceFallback: false,
+        });
+
+        if (authenticationBiometric.success) {
+            remotePortao()
+        }
+
+    };
+
+    const remotePortao=()=>{
+
+        let url = 'coloque aqui link do firebase'
+        let req = new XMLHttpRequest();
+        req.open('PUT', url)
+        req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+        req.send(JSON.stringify("true"));
+        console.log('Enviado')
+
+    }
+
+ 
+
 
     const openGate = () => {
 
@@ -136,7 +164,7 @@ export default function Home() {
 
             <View style={{ top: -28, width: "100%", height: "9%", backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', borderTopRightRadius: 20, borderBottomRightRadius: 20 }}>
                 <View style={{ width: 130, height: 130, borderRadius: 75, backgroundColor: 'white', justifyContent: 'center', flexDirection: 'column', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => biometric()}>
+                    <TouchableOpacity onPress={() => biometric()} onLongPress={()=> biometricOnLong()}>
                         <View style={styles.ButtonGate}>
                             <Image source={Gate} style={{ width: '60%', height: '60%' }} />
                         </View>

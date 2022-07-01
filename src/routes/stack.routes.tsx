@@ -1,7 +1,7 @@
 import React from 'react'
 import Bedroom from '../pages/Bedroom';
 import LivingRoom from '../pages/Living-Room';
-import Home from '../pages/Home';
+import Home from '../pages/home';
 import GamerRoom from '../pages/Gamer-Room'
 import PartyArea from '../pages/Party-Area';
 
