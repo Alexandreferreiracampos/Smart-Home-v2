@@ -53,7 +53,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
     },[valueFan, valueBedroom, valuelivingRoom, valueName ])
      
     const salvarDevices =()=>{
-        if(valueFan != '' || valueBedroom != '' || valuelivingRoom != "" || valueName != ''){
+        if(valueFan != '' || valueBedroom != '' || valuelivingRoom != "" || valueName != '' || valueAuth != '' || valueHost != '' || valueEscritorio != '' || valueEdicula != ''){
           
           storeData()
           reloadDataSave()
@@ -193,7 +193,7 @@ const styles = StyleSheet.create({
   outerView: {
     flex: 1,
     paddingTop:60,
-    backgroundColor: 'rgba(0,0,0,0.3)',
+    backgroundColor: 'rgba(0,0,0,0.6)',
     alignItems: 'center'
   },
   modalView: {
@@ -250,6 +250,14 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
     borderRadius:18,
+    shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 1.22,
+        elevation: 5,
     
   },
   environmentList:{
