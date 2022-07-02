@@ -50,13 +50,20 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
         
       })
     
-    },[valueFan, valueBedroom, valuelivingRoom, valueName ])
+    },[valueFan, valueBedroom, valuelivingRoom, valueName, valueEscritorio, valueEdicula, valueHost , valueAuth ])
      
     const salvarDevices =()=>{
         if(valueFan != '' || valueBedroom != '' || valuelivingRoom != "" || valueName != '' || valueAuth != '' || valueHost != '' || valueEscritorio != '' || valueEdicula != ''){
           
           storeData()
           reloadDataSave()
+          ToastAndroid.showWithGravityAndOffset(
+            "Salvo os novos dispositivos",
+            ToastAndroid.LONG,
+            ToastAndroid.CENTER,
+            25,
+            50
+          );
           
         }else{
           ToastAndroid.showWithGravityAndOffset(
@@ -143,7 +150,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               <TextInput
               style={styles.inputText}
               placeholder={ipEscritorio || 'IP Device Escritório'}
-              onChangeText={setValueFan}
+              onChangeText={setValueEscritorio}
               
               />
 
@@ -151,7 +158,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               <TextInput
               style={styles.inputText}
               placeholder={ipEdicula || 'IP Device Edícula'}
-              onChangeText={setValueFan}
+              onChangeText={setValueEdicula}
               
               />
 

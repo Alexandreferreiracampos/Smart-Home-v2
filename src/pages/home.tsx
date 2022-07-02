@@ -34,6 +34,7 @@ export default function Home() {
             const objeto = JSON.parse(dataDevices || '');
             setDevices(objeto)
             setValidateData(false)
+            console.log(objeto)
         }
         loadStorgeUserName()
 
@@ -46,6 +47,7 @@ export default function Home() {
     const changeStatusModal = () => {
 
         setModalAtive(false)
+      
 
     }
 
