@@ -34,7 +34,6 @@ export default function Home() {
             const objeto = JSON.parse(dataDevices || '');
             setDevices(objeto)
             setValidateData(false)
-            console.log(objeto)
         }
         loadStorgeUserName()
 
@@ -171,7 +170,7 @@ export default function Home() {
             </View>
 
             <View style={styles.subHeader}>
-                <Image source={require('../assets/home.jpeg')} style={styles.image}></Image>
+                <Image source={require('../assets/2.jpeg')} style={styles.image}></Image>
             </View>
 
             <View style={{ top: -28, width: "100%", height: "9%", backgroundColor: 'white', justifyContent: 'center', alignItems: 'center', flexDirection: 'row', borderTopRightRadius: 20, borderBottomRightRadius: 20 }}>
