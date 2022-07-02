@@ -25,7 +25,7 @@ export default function Home() {
     const navigation = useNavigation();
 
 
-    const [devices, setDevices] = useState({ fan: '', Bedroom: '', livingRoom: '', name: '', escritorio: '', edicula: '' });
+    const [devices, setDevices] = useState({ fan: '', Bedroom: '', livingRoom: '', name: '', escritorio: '', edicula: '', host:'', auth:'' });
 
     if (validateData == true) {
         async function loadStorgeUserName() {
@@ -113,23 +113,23 @@ export default function Home() {
         });
 
         if (authenticationBiometric.success) {
-            remotePortao("true")
+            remoteDevice("true", "portao", "Acionado Remotamente")
         }else{
-            remotePortao("false")
+            remoteDevice("false", "portao", "Cancelado")
         }
 
     };
 
-    const remotePortao=(value:any)=>{
+    const remoteDevice=(value:any, device:any, msg:any)=>{
 
-        let url = 'Link firebase aqui'
+        let url = devices.host + device + '.json?auth='+ devices.auth
         let req = new XMLHttpRequest();
         req.open('PUT', url)
         req.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
         req.send(JSON.stringify(value));
 
         ToastAndroid.showWithGravityAndOffset(
-            "Acionando Portão Remotamente",
+            msg,
             ToastAndroid.LONG,
             ToastAndroid.CENTER,
             25,
@@ -161,7 +161,7 @@ export default function Home() {
 
         <View style={styles.container}>
 
-            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} name={devices.name} ipEdicula={devices.edicula} ipEscritorio={devices.escritorio} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
+            <ScreenModal statusModal={modalActive} ipFan={devices.fan} ipBedroom={devices.Bedroom} ipLivingRoom={devices.livingRoom} name={devices.name} ipEdicula={devices.edicula} ipEscritorio={devices.escritorio} hostFirebase={devices.host} authFirebase={devices.auth} changeStatusModal={() => changeStatusModal()} reloadDataSave={() => reloadDataSave()} />
 
             <View style={styles.header}>
                 <Animatable.Text animation="slideInLeft" style={styles.title}>Olá {devices.name}</Animatable.Text>
@@ -180,9 +180,9 @@ export default function Home() {
                         </View>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "/rele1")} ><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "/?rele4")}><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "?rele3")}><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "/rele1")} onLongPress={()=> remoteDevice("true", "leds", "Led Acionado Remotamente")} ><Text style={[styles.titleButton, activeTextLeds && styles.titleButtonActive]}>Leds</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "/?rele4")} onLongPress={()=> remoteDevice("true", "arandelas", "Arandelas Acionado Remotamente")} ><Text style={[styles.titleButton, activeTextArandela && styles.titleButtonActive]}>Arandelas</Text></TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={() => command(devices.livingRoom + "?rele3")} onLongPress={()=> remoteDevice("true", "Luzgaragem", "Luz Garagem Acionado Remotamente")}><Text style={[styles.titleButton, activeTextGaragem && styles.titleButtonActive]}>Garagem</Text></TouchableOpacity>
             </View>
 
             <View style={styles.containerButton} >

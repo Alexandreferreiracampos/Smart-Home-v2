@@ -14,13 +14,14 @@ interface ButtonProps extends TouchableOpacityProps{
   name:string
   ipEscritorio:string
   ipEdicula:string
-  
+  hostFirebase:string
+  authFirebase:string
   changeStatusModal:()=>void;
   reloadDataSave:()=>void
     
 
 }
-export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom, name, ipEscritorio, ipEdicula, changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
+export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoom, name, ipEscritorio, ipEdicula, hostFirebase, authFirebase, changeStatusModal,reloadDataSave, ...rest }: ButtonProps){
     
 
 
@@ -30,8 +31,10 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
     const [valueName, setValueName] = useState('')
     const [valueEscritorio, setValueEscritorio] = useState('')
     const [valueEdicula, setValueEdicula] = useState('')
+    const [valueHost, setHost] = useState('')
+    const [valueAuth, setAuth] = useState('')
     
-    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:'', name:'',escritorio:'', edicula:''})
+    const [value, setValue] = useState({fan:'',Bedroom:'',livingRoom:'', name:'',escritorio:'', edicula:'', host:'', auth:'' })
 
     useEffect(()=>{
       setValue({
@@ -41,7 +44,9 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
           livingRoom:valuelivingRoom || ipLivingRoom,
           name:valueName || name,
           escritorio:valueEscritorio || ipEscritorio,
-          edicula:valueEdicula || ipEdicula
+          edicula:valueEdicula || ipEdicula,
+          host:valueHost || hostFirebase,
+          auth:valueAuth || authFirebase
         
       })
     
@@ -95,14 +100,14 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
           
             <View style={styles.headerModal}>
               
-              <Text style={{fontSize:20}}>Configurar Devices</Text>
-              <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="black" />
+              <Text style={{fontSize:20, fontWeight:'bold', color:'#868686'}}>Configurar Devices</Text>
+              <Ionicons onPress={()=>changeStatusModal()} name="close-sharp" size={24} color="red" />
             </View>
             <View style={styles.container}>
             
             <ScrollView contentContainerStyle={styles.environmentList} showsHorizontalScrollIndicator={false}>
            
-            <View style={{width:'100%', paddingLeft:20}}><Text>Nome de Uusário</Text></View>
+            <View style={{width:'100%',paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Nome de Uusário</Text></View>
             <TextInput
               style={styles.inputText}
               placeholder={name || 'Nome de Uusário'}
@@ -110,7 +115,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               
               />
 
-              <View style={{width:'100%', paddingLeft:20}}><Text>Ventilador</Text></View>
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Ventilador</Text></View>
               <TextInput
               style={styles.inputText}
               placeholder={ipFan || 'IP Device Ventilador'}
@@ -118,7 +123,7 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               
               />
         
-              <View style={{width:'100%', paddingLeft:20}}><Text>Quarto</Text></View>
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Quarto</Text></View>
               <TextInput
               style={styles.inputText}
               placeholder={ipBedroom || 'IP Device Quarto'}
@@ -127,14 +132,14 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               
               />
 
-              <View style={{width:'100%', paddingLeft:20}}><Text>Sala</Text></View>
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Sala</Text></View>
               <TextInput
               style={styles.inputText}
               placeholder={ipLivingRoom || 'IP Device Sala'}
               onChangeText={setValueLivingRoom}
               
               />
-              <View style={{width:'100%', paddingLeft:20}}><Text>Escritório</Text></View>
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Escritório</Text></View>
               <TextInput
               style={styles.inputText}
               placeholder={ipEscritorio || 'IP Device Escritório'}
@@ -142,20 +147,33 @@ export default function ScreenModal({ statusModal, ipFan, ipBedroom, ipLivingRoo
               
               />
 
-              <View style={{width:'100%', paddingLeft:20}}><Text>Edícula</Text></View>
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Edícula</Text></View>
               <TextInput
               style={styles.inputText}
               placeholder={ipEdicula || 'IP Device Edícula'}
               onChangeText={setValueFan}
               
               />
-        
-             
-              
 
+             <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Host</Text></View>
+              <TextInput
+              style={styles.inputText}
+              placeholder={hostFirebase || 'Host Firebase'}
+              onChangeText={setHost}
+              
+              /> 
+
+              <View style={{width:'100%', paddingLeft:10}}><Text style={{fontWeight:'bold', color:'#868686'}}>Auth</Text></View>
+              <TextInput
+              style={styles.inputText}
+              placeholder={authFirebase || 'Secret Firebase'}
+              onChangeText={setAuth}
+              
+              /> 
+        
               </ScrollView>
               
-              <TouchableOpacity style={styles.buttonSalvar} onPress={salvarDevices}><Text>Salvar</Text></TouchableOpacity>
+              <TouchableOpacity style={styles.buttonSalvar} onPress={salvarDevices}><Text style={{fontWeight:'bold', color:'white'}}>Salvar</Text></TouchableOpacity>
              
               
             </View>
@@ -184,49 +202,60 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 15,
     width: "80%",
-    height: '68%',
+    height: '53%',
     alignItems: 'center'
-
   },
   
   headerModal: {
     
     width: "100%",
-    height: "10%",
+    height: "13%",
     flexDirection: 'row',
+    padding:10,
+    marginBottom:10,
     justifyContent: 'space-between',
     alignItems: 'center'
+    
 
   },
   container:{
     width:'100%',
-    height:'90%',
+    height:'82%',
     justifyContent:'center',
     alignItems:'center',
   },
   inputText:{
-    width:"90%",
-    height:"10%",
+    width:280,
+    height:"8%",
     backgroundColor:'white',
-    margin:8,
-    borderRadius:10,
-    padding:10
+    margin:5,
+    borderRadius:8,
+    padding:10,
+    marginBottom:10,
+    shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 1.22,
+        elevation: 2,
 
   },
   buttonSalvar:{
     marginTop:15,
     width:"40%",
-    height:"10%",
+    height:"13%",
     backgroundColor:'#39d76c',
     justifyContent:'center',
     alignItems:'center',
-    borderRadius:18
-
+    borderRadius:18,
+    
   },
   environmentList:{
     justifyContent:'center',
     alignItems:'center',
-    paddingVertical:40
+    paddingVertical:20
 
 }
 })

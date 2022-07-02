@@ -29,6 +29,24 @@ export default function Bedroom() {
     const [size, setSize] = useState(0);
     const [statusSize, setStatusSize] = useState(0);
     const [statusReguest, setReguest] = useState('#39d76c');
+    const [statusFan, setStatusFan] = useState('Ventilador')
+
+    
+
+    const fanStatus = () => {
+
+        let url = 'http://'+devices.fan+'/status'
+        let req = new XMLHttpRequest();
+        req.responseType = 'json';
+        req.open('GET', url,)
+        req.onload  = function() {
+            var jsonResponse = req.response;
+            setStatusFan(jsonResponse.status);
+         };
+        req.send()
+       
+        
+    }
 
     if(validateData == true){
     async function loadStorgeUserName(){
@@ -40,22 +58,24 @@ export default function Bedroom() {
         setValidateData(false)
         }
     loadStorgeUserName()
+    fanStatus()
 
     }
-
+ 
+     
+   
     const command = (valor: any) => {
 
         let url = 'http://'+valor
         let req = new XMLHttpRequest();
-
         req.onreadystatechange = () => {
             if (req.status == 200 && req.readyState == 4) {
                 setReguest('#39d76c')
+                fanStatus()
             } else {
                 setReguest('red')
             }
         }
-
         req.open('GET', url)
         req.send()
 
@@ -153,7 +173,7 @@ export default function Bedroom() {
                 </View>
                 <Animatable.View animation="slideInUp" style={{ flexDirection: 'row'}}>
                     <Button title='Luz' ico={lamp} width={80} height={80} onPress={() => command(devices.Bedroom+"/rele4")} />
-                    <Button title='Ventilador' ico={fan} width={80} height={80} onPress={() => command(devices.fan+"/ventilador")} />
+                    <Button title={statusFan} ico={fan} width={80} height={80} onPress={() => command(devices.fan+"/Controle?FanQuarto=on")} />
                 </Animatable.View>
                 <View style={styles.buttomDimer}>
                     <View style={{ width: "90%" }}>
