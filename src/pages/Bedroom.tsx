@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
@@ -9,18 +9,6 @@ import Slider from '@react-native-community/slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as Animatable from 'react-native-animatable';
 
-var dimer0 = false
-var dimer10 = false
-var dimer20 = false
-var dimer30 = false
-var dimer40 = false
-var dimer50 = false
-var dimer60 = false
-var dimer70 = false
-var dimer80 = false
-var dimer90 = false
-var dimer100 = false
-
 
 export default function Bedroom() {
 
@@ -29,10 +17,11 @@ export default function Bedroom() {
     const [size, setSize] = useState(0);
     const [statusSize, setStatusSize] = useState(0);
     const [statusReguest, setReguest] = useState('#39d76c');
-    const [statusFan, setStatusFan] = useState('Ventilador')
-
+    const [statusFan, setStatusFan] = useState('Ventilador');
+    const [brilho, SetBrilho] = useState(255);
+    const [corRgb, setCoRgb] = useState(0);
+    const [sliderRGB, setSliderRgb] = useState();
     
-
     const fanStatus = () => {
 
         let url = 'http://'+devices.fan+'/status'
@@ -86,78 +75,32 @@ export default function Bedroom() {
 
         }
     }
-    const dimerValor = () => {
-        
-        if(size == 0 && dimer0 == true ){
-            dimer0 = false
-            dimer10 = false
-            dimer0 = false
-            command(devices.Bedroom+'/0')
-          }
-          if(size == 1 && dimer10 == false ){
-            dimer0 = true
-            dimer10 = true
-            dimer20 = false 
-            command(devices.Bedroom+'/1')
-          }
-          if(size == 2 && dimer20 == false ){
-            dimer10 = false
-            dimer20 = true
-            dimer30 = false
-            command(devices.Bedroom+'/2')
-          }
-          if(size == 3 && dimer30 == false ){
-            dimer20 = false
-            dimer30 = true
-            dimer40 = false
-            command(devices.Bedroom+'/3')
-          }
-          if(size == 4 && dimer40 == false ){
-            dimer30 = false
-            dimer40 = true
-            dimer50 = false
-            command(devices.Bedroom+'/4')
-          }
-          if(size == 5 && dimer50 == false ){
-            dimer40 = false
-            dimer50 = true
-            dimer60 = false
-            command(devices.Bedroom+'/5')
-          }
-          if(size == 6 && dimer60 == false ){
-            dimer50 = false
-            dimer60 = true
-            dimer70 = false
-            command(devices.Bedroom+'/6')
-          }
-          if(size == 7 && dimer70 == false ){
-            dimer60 = false
-            dimer70 = true
-            dimer80 = false
-            command(devices.Bedroom+'/7')
-          }
-          if(size == 8 && dimer80 == false ){
-            dimer70 = false
-            dimer80 = true
-            dimer90 = false
-            command(devices.Bedroom+'/8')
-          }
-          if(size == 9 && dimer90 == false ){
-            dimer80 = false
-            dimer90 = true
-            dimer100 = false
-            command(devices.Bedroom+'/9')
-          }
-          if(size == 10 && dimer100 == false ){
-            dimer90 = false
-            dimer100 = true
-            dimer0 = true
-            command(devices.Bedroom+'/10')
-          }
-        
+    
+    useEffect(()=>{
+        if(corRgb >= 0 && corRgb <= 20){
+            setSliderRgb("red")
+        }
+        if(corRgb >= 70 && corRgb <= 90){
+            setSliderRgb('#008000')
+        }
+        if(corRgb >= 100 && corRgb <= 149){
+            setSliderRgb('#FFc222')
+        }
+        if(corRgb >= 150 && corRgb <= 200){
+            setSliderRgb('rgb(0,150,255)')
+        }
+        if(corRgb >= 200 && corRgb <= 255){
+            setSliderRgb('#ee82ee')
+        }
 
-    }
-
+        let url = 'http://192.168.0.238/Controle?rgb='+corRgb+"a"+brilho
+        let req = new XMLHttpRequest();
+        req.open('GET', url)
+        req.send()
+        console.log('RGB'+corRgb+"a"+brilho)
+        
+        
+    },[brilho, corRgb])
 
     return (
         <Animatable.View style={styles.container}>
@@ -175,23 +118,44 @@ export default function Bedroom() {
                     <Button title='Luz' ico={lamp} width={80} height={80} onPress={() => command(devices.Bedroom+"/rele4")} />
                     <Button title={statusFan} ico={fan} width={80} height={80} onPress={() => command(devices.fan+"/Controle?FanQuarto=on")} />
                 </Animatable.View>
+                <View style={{flexDirection:'column',width:350, height:220}}>
                 <View style={styles.buttomDimer}>
-                    <View style={{ width: "90%" }}>
+                    <View style={{ width: "90%", top:'-1%' }}>
                         <Slider
                             minimumValue={0}
-                            maximumValue={10}
+                            maximumValue={255}
                             minimumTrackTintColor='#868686'
                             maximumTrackTintColor='#cdcdcd'
                             thumbTintColor='#868686'
-                            onSlidingStart={dimerValor()}
-                            onValueChange={(valorDimer) => setSize(valorDimer.toFixed(0))}
-                            value={size}
-
+                            //onSlidingStart={RGB1(corRgb)}
+                            onValueChange={(valor) => SetBrilho(valor.toFixed())}
+                            value={brilho}
                         />
-
+                        <View style={{ width: "90%", top:'15%' }}>
+                        <Slider
+                            minimumValue={0}
+                            maximumValue={255}
+                            minimumTrackTintColor={sliderRGB}
+                            maximumTrackTintColor='#cdcdcd'
+                            thumbTintColor={sliderRGB}
+                            //onSlidingStart={RGB1(corRgb)}
+                            onValueChange={(valor) => setCoRgb(valor.toFixed())}
+                            value={corRgb}
+                            
+                        />
+                     </View>
+                        
+                        
                     </View>
-                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={() => command(devices.Bedroom+'/fade')}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
-
+                    <TouchableOpacity style={{ width: 50, left: -5 }} onPress={() => SetBrilho(0)}><Entypo name="light-down" size={35} color='#868686' /></TouchableOpacity>
+                    </View>
+                    <View style={styles.containerRGB}>
+                    <TouchableOpacity onPress={()=>setCoRgb("white")} style={[styles.buttonRgb, {backgroundColor:'white'}]}><Text style={{color:'#868686', fontWeight:'bold'}}>White</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setCoRgb(0)} style={[styles.buttonRgb, {backgroundColor:'white'}]}><Text style={{color:'red', fontWeight:'bold'}}>Red</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setCoRgb(70)} style={[styles.buttonRgb, {backgroundColor:'white'}]}><Text style={{color:'#008000', fontWeight:'bold'}}>Green</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={()=>setCoRgb(170)} style={[styles.buttonRgb, {backgroundColor:'white'}]}><Text style={{color:'rgb(0,150,255)', fontWeight:'bold'}}>Blue</Text></TouchableOpacity>
+                    </View>
+                    
                 </View>
 
 
@@ -239,9 +203,9 @@ const styles = StyleSheet.create({
 
     },
     buttomDimer: {
-        top: '4%',
-        width: "84%",
-        height: '14%',
+        top:5,
+        width: "100%",
+        height: '29%',
         borderRadius: 10,
         backgroundColor: 'white',
         marginTop: '7%',
@@ -259,4 +223,28 @@ const styles = StyleSheet.create({
         elevation: 2,
 
     },
+    containerRGB:{
+        top:24,
+        flexDirection:'row',
+        justifyContent:'space-between',
+        alignItems:'center',
+        width:"100%",
+        height:"30%",  
+    },
+    buttonRgb:{
+        width:"18%",
+        height:"90%",
+        borderRadius:10,
+        justifyContent:'center',
+        alignItems:'center',
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 1,
+        },
+        shadowOpacity: 0.22,
+        shadowRadius: 1.22,
+        elevation: 2,
+
+    }
 })
