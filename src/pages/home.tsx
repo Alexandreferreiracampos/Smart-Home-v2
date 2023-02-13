@@ -188,11 +188,11 @@ export default function Home() {
 
             <View style={styles.containerButton} >
                 <ScrollView horizontal contentContainerStyle={styles.environmentList} showsHorizontalScrollIndicator={false} >
-                    <Button title='Sala' ico={BTLivingRoom} width={90} height={90} onPress={() => navigatioScreen('LivingRoom')} />
-                    <Button title='Quarto' ico={BTBedroom} width={90} height={90} onPress={() => navigatioScreen('Bedroom')} />
-                    <Button title='Edícula' ico={churrasco} width={90} height={90} onPress={() => navigatioScreen('PartyArea')} />
-                    <Button title='Escritório' ico={escritorio} width={90} height={90} onPress={() => navigatioScreen('GamerRoom')} />
-
+                    <Button title='Sala' ico={BTLivingRoom} width={90} height={90} onPress={() => navigatioScreen('LivingRoom')} onLongPress={()=>console.log("onLongPress")} />
+                    <Button title='Quarto' ico={BTBedroom} width={90} height={90} onPress={() => navigatioScreen('Bedroom')} onLongPress={()=>console.log("onLongPress")}/>
+                    <Button title='Edícula' ico={churrasco} width={90} height={90} onPress={() => navigatioScreen('PartyArea')} onLongPress={()=>console.log("onLongPress")}/>
+                    <Button title='Escritório' ico={escritorio} width={90} height={90} onPress={() => navigatioScreen('GamerRoom')} onLongPress={()=>console.log("onLongPress")}/>
+                   
                 </ScrollView>
             </View>
 

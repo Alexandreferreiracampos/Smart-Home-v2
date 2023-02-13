@@ -60,14 +60,13 @@ export default function PartyArea(){
                 </View>
              
                 <Animatable.View animation="slideInUp" style={{ flexDirection: 'row'}}>
-                    <Button title='Pendente' ico={pendente} width={80} height={80} onPress={() => command(devices.edicula+"/pendente")} />
-                    <Button title='Leds' ico={led} width={80} height={80} onPress={() => command(devices.edicula+"/led")} />
-                    
+                    <Button title='Luz' ico={lamp} width={80} height={80} onPress={() => command(devices.edicula+"/relee")} />
+                    <Button title='Pendente' ico={pendente} width={80} height={80} onPress={() => command(devices.edicula+"/relef")} />  
                 </Animatable.View>
                 <Animatable.View animation="slideInUp"  delay={100} style={{ flexDirection: 'row'}}>
-                    <Button title='Arandélas' ico={led} width={80} height={80} onPress={() => command(devices.edicula+"/arandela")} />
-                    <Button title='Luz' ico={lamp} width={80} height={80} onPress={() => command(devices.edicula+"/luz")} />
                     
+                    <Button title='Leds' ico={led} width={80} height={80} onPress={() => command(devices.edicula+"/releg")} />  
+                    <Button title='Arandélas' ico={led} width={80} height={80} onPress={() => command(devices.edicula+"/releh")} />
                 </Animatable.View>
                 
                 </View>

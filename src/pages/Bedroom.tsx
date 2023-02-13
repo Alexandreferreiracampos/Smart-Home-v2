@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
 import Button from '../components/Button';
 import Header from '../components/Header';
+import ScreenModalButton from '../components/Screen-Modal-Button';
 import { Entypo } from '@expo/vector-icons';
 import fan from '../assets/fan.png';
 import lamp from '../assets/lamp.png';
@@ -21,6 +22,7 @@ export default function Bedroom() {
     const [brilho, SetBrilho] = useState(255);
     const [corRgb, setCoRgb] = useState(0);
     const [sliderRGB, setSliderRgb] = useState();
+    const [modalActive, setModalAtive] = useState(false);
     
     const fanStatus = () => {
 
@@ -104,7 +106,8 @@ export default function Bedroom() {
 
     return (
         <Animatable.View style={styles.container}>
-            <Header title={'Quarto'} status={statusReguest} />
+            <ScreenModalButton title={"Quarto"} statusModalButon={modalActive} closeModal={()=>setModalAtive(false)}/>
+            <Header title={'Quarto'} status={statusReguest} statusModal={()=>setModalAtive(true)}/>
             <View style={styles.subHeader}>
                 
                 <Image source={require('../assets/Bedroom.jpg')} style={styles.image}></Image>
